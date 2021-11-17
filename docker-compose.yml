@@ -36,25 +36,6 @@ services:
       - 80:80
     depends_on:
       - php
-  redis:
-    image: library/redis:6.0.10-alpine
-  queue:
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-    environment:
-      DB_HOST: ${DB_HOST:-mysql}
-    tty: true
-    stdin_open: true
-    volumes:
-      - .:/usr/src/laravel-app
-      - ./node_modules:/usr/src/laravel-app/node_modules
-      - ./vendor:/usr/src/laravel-app/vendor
-    entrypoint:
-      - "/usr/bin/supervisord"
-      - "-n"
-      - "-c"
-      - "/etc/supervisord.conf"
   mail:
     image: mailhog/mailhog
     ports:
