@@ -8,14 +8,16 @@
             <div class="card-header">
                 投稿一覧
             </div>
+            @foreach ($posts as $post)
             <div class="card-body">
-                <h5 class="card-title">1回目の投稿</h5>
-                <p class="card-text">油そばは春日亭も好きですが、kirinjiが一番好きです</p>
-                <a href="#" class="btn btn-primary">詳細</a>
+                <h5 class="card-title">タイトル：{{ $post->title }}</h5>
+                <p class="card-text">***内容：{{ $post->body }}</p>
+                <a href="#" class="btn btn-primary">詳細へ</a>
             </div>
             <div class="card-footer text-muted">
-                2日前
+                投稿日時：{{ $post->created_at }}
             </div>
+            @endforeach
         </div>
         </div>
         <div class="col-md-2">
