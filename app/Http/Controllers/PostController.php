@@ -48,9 +48,13 @@ class PostController extends Controller
         $input = $request->all();
         // ユーザーが入力した $request の配列を $input に代入します。
         $input['user_id'] = Auth::id();
+
+        // dd(Auth::user());
+        // ログイン中のuserのIdが取れる
         // user_id は Auth::id() で取得し $input の配列に追加します。
         Post::create($input);
         // create() を使用して新規投稿を保存しましょう。
+        return redirect()->route('posts.index');
     }
 
     /**
