@@ -94,6 +94,12 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $comment = Comment::find($id);
+        if(Auth::id() !== $comment->user_id){
+            return abort(404);
+        }
+        $comment -> delete();
+        return redirect()->route('posts.index');
     }
 }

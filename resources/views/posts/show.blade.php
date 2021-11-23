@@ -46,7 +46,12 @@
                 <div calss="card-body">
                   <h5 class="card-title mx-3 my-3">投稿日時：{{ $comment->created_at}}</h5>
                   <p class="card-text mx-3 my-3">内容：{{  $comment->body}}</p>
-
+                  <form action='{{ route('comments.destroy', $comment->id) }}' method='post'>
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    {{-- htmlはDELETEアクションをサポートしてないため --}}
+                    <input type='submit' value='削除' class="btn btn-danger mx-2" onclick='return confirm("削除しますか？？");'>
+                </form>
 
                 </div>
 
