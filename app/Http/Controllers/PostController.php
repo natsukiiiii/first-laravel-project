@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use Auth;
+use JD\Cloudder\Facades\Cloudder;
 
 class PostController extends Controller
 {
@@ -44,6 +45,34 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
+
+        $post = new Post;
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->user_id = Auth::id();
+
+        if($image = $request->file('image')){
+            $image_path = $image->getRealPath();
+            // getRealPath() :ファイルへの絶対パスを取得する
+            Cloudder::upload($image_path, null);
+            // upload :Cloudinaryにファイルをアップロードします
+            $publicId = Cloudder::getPublicId();
+            // getPublicId():直前にアップロードされたファイルのpublicIdを取得
+            // Cloudinary上の画像を削除したり、リサイズしたりする場合に必要
+            $logoUrl = Cloudder::secureShow($publicId, [
+                // secureShow:サイズを指定した画像へのURLを取得
+                'width' => 200,
+                'height' => 200
+            ]);
+            $post->image_path = $logoUrl;
+            $post->public_id = $publicId;
+
+        }
+        $post->save();
+
+    return redirect()->route('posts.index');
+
+
         // dd($request);
         $input = $request->all();
         // ユーザーが入力した $request の配列を $input に代入します。

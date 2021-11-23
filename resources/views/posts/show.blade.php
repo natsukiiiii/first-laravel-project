@@ -9,6 +9,8 @@
             <div class="card-body">
                 <p class="card-text">内容：{{ $post->body }}</p>
                 <p>投稿者：{{$post->user->name}}</p>
+                <img src="{{ $post->image_path }}" alt="">
+                {{-- !? altに値入れると全ページに文字と画像マーク表示されてしまう, --}}
                 <p>投稿日時：{{ $post->created_at }}</p>
 
                 <div class="btn-group">

@@ -26,14 +26,20 @@ class PostRequest extends FormRequest
         return [
             'title' => 'required|max:20',
             'body'  => 'required',
+            'image' => 'mimes:jpeg,jpg,png,gif|max:10240',
         ];
     }
     public function messages()
 {
     return [
         'title.required' => 'タイトルは必須です。',
-    'title.max'      => 'タイトルは20文字以内で記入してください。',
+        'title.unique' => 'タイトルが被ってます',
+        'title.max'      => 'タイトルは20文字以内で記入してください。',
         'body.required'  => '内容は必須です。',
+        'image.mimes'  => 'ファイルタイプをjpeg,jpg,png,gifに設定してください。',
+        'image.max'  => 'ファイルサイズを10MB以下に設定してください。',
+
+
     ];
 }
 }
