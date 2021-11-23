@@ -149,6 +149,10 @@ class PostController extends Controller
         if(Auth::id() !== $post->user_id){
             return abort(404);
         }
+        if(issset($post->public_id)){
+            Cloudder::destroyImage($post->public_id);
+            // 上記追記で削除の表示もされている。。
+        }
         $post -> delete();
         return redirect()->route('posts.index');
     }
