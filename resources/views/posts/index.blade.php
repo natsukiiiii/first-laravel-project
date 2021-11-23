@@ -15,6 +15,7 @@
                 <p class="card-text">投稿者：{{ $post->user->name }}</p>
                 <p class="text-muted text-right">投稿日時：{{ $post->created_at }}</p>
                 <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">詳細へ</a>
+                {{-- $post->id : どのpostの詳細にいくのかを指定 --}}
 
             </div>
             @endforeach

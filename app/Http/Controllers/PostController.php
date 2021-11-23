@@ -11,6 +11,8 @@ use JD\Cloudder\Facades\Cloudder;
 class PostController extends Controller
 {
     public function __construct()
+    // __construct : クラスのインスタンス生成時に最初に実行される関数です。
+    // constructは新たにインスタンスを生成する度に呼び出され、引数を渡し、クラス内に定義したプロパティの初期化などに使用されます。
     {
         $this->middleware('auth');
     }
@@ -24,7 +26,8 @@ class PostController extends Controller
         $posts = Post::all();
         $posts->load('user');
         return view('posts.index', compact('posts'));
-        // return view('posts.index');
+        // 'posts.index' :postsディレクトリのindex.blade.phpという意味
+        // php artisan route:listでルートの一覧確認できる
     }
 
     /**
@@ -44,6 +47,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(PostRequest $request)
+    // !? PostRequest: php artisan make:request PostRequestで作ったPost.php。と上記6行目にも記載あり
+    // 新規投稿の作成するボタン押下後に storeが動く。
+    // $request　：create.bladeで入力した値を受け取っている
     {
 
         $post = new Post;
@@ -66,11 +72,13 @@ class PostController extends Controller
             ]);
             $post->image_path = $logoUrl;
             $post->public_id = $publicId;
+            // !? public_idは、
+            
 
         }
         $post->save();
 
-    return redirect()->route('posts.index');
+        return redirect()->route('posts.index');
 
 
         // dd($request);
@@ -93,8 +101,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+        // show($id)で$idを受け取ります。この$idはユーザーが詳細ボタンをクリックした投稿のIDが入っています。
     {
         $post = Post::find($id);
+        // なので、Postモデルから$idを使って検索をしています。
         $post->load('user', 'comments');
         // テーブルが2つあったとしたら
         // Eagerロード：2つのデーブルのデータを１度に取得します
@@ -146,10 +156,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        // findで削除対象を探す
         if(Auth::id() !== $post->user_id){
             return abort(404);
         }
-        if(issset($post->public_id)){
+        if(isset($post->public_id)){
             Cloudder::destroyImage($post->public_id);
             // 上記追記で削除の表示もされている。。
         }

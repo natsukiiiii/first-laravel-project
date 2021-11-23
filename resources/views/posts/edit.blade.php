@@ -15,6 +15,8 @@
             <form action="{{ route('posts.update', $post->id) }}" method="POST">
             {{csrf_field()}}
             {{method_field('PATCH')}}
+            {{-- htmlはPATCHをサポートしてないので、method=”PATCH”とできない。
+            更新はPATCH --}}
                 <div class="form-group">
                     <label>タイトル</label>
                     <input type="text" class="form-control" value="{{ $post->title }}" name="title">

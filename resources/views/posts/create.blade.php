@@ -15,6 +15,7 @@
             <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                 {{-- enctype="multipart/form-data":画像のアップロード処理に必須 --}}
             {{csrf_field()}}
+            {{-- クロス・サイト・リクエスト・フォージェリは悪意のあるエクスプロイトの一種であり、信頼できるユーザーになり代わり、認められていないコマンドを実行します。 --}}
                 <div class="form-group">
                     <label>タイトル</label>
                     <input type="text" class="form-control" placeholder="タイトルを入力して下さい" name="title">
