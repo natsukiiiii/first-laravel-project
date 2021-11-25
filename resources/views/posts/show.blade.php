@@ -9,8 +9,11 @@
             <div class="card-body">
                 <p class="card-text">内容：{{ $post->body }}</p>
                 <p>投稿者：{{$post->user->name}}</p>
-                <img src="{{ $post->image_path }}" alt="">
+                @isset($post->image_path)
+                  <img src="{{ $post->image_path }}" alt="画像">
+                @endisset
                 {{-- !? altに値入れると全ページに文字と画像マーク表示されてしまう, --}}
+                 {{-- →if分で画像がある時のみ表示する --}}
                 <p>投稿日時：{{ $post->created_at }}</p>
 
                 <div class="btn-group">
@@ -41,6 +44,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             @foreach ($post->comments as $comment)
+            {{-- post.phpのcomments,postとcommentsがリレーションしているから --}}
             <div class="card mt-3">
                 <h5 class="card-header">投稿者：{{ $comment->user->name}}</h5>
                 <div calss="card-body">

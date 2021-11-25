@@ -29,6 +29,7 @@ class CommentRequest extends FormRequest
     }
 
     public function messages()
+    // エラーが起きた時に出てくる
     {
         return [
             'body.required' => '内容は必須です',

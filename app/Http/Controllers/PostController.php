@@ -56,8 +56,11 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->body = $request->body;
         $post->user_id = Auth::id();
+        // $post->user_id : 該当の投稿のuser_id
+        // Auth::id() : ログイン中のユーザーのid
 
         if($image = $request->file('image')){
+            // イメージがあった場合に走る処理
             $image_path = $image->getRealPath();
             // getRealPath() :ファイルへの絶対パスを取得する
             Cloudder::upload($image_path, null);
@@ -72,9 +75,7 @@ class PostController extends Controller
             ]);
             $post->image_path = $logoUrl;
             $post->public_id = $publicId;
-            // !? public_idは、
-            
-
+            //  public_idは、マイグレーションで指定してる
         }
         $post->save();
 

@@ -41,25 +41,20 @@ class CommentController extends Controller
     {
         $post = Post::find($request->post_id);
         // 該当の投稿を探す
-        
             $comment = new Comment;
             //commentのインスタンスを作成
-        
             $comment -> body = $request->body;
             $comment -> user_id = Auth::id();
             $comment -> post_id = $request->post_id;
             $comment->save();
 
-    
         // if($post->id === 'POST'){
-            
         // }
         $request->session()->regenerateToken();
     //  !? リロードするたびにコメントが増えたのを防ぐため、上記を入れたが、419が毎度表示されるので、まだ改善の予知あり。。
 
         return view('posts.show', compact('post'));
         //リターン先は該当の投稿詳細ページ
-    
         // compact:変数を受け渡す時に使う。複数可。withでも良いがcompactの方が可読性高いらしい。
     }
 
@@ -105,7 +100,6 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        
         $comment = Comment::find($id);
         if(Auth::id() !== $comment->user_id){
             return abort(404);
