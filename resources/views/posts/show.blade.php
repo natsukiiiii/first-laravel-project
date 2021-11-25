@@ -15,6 +15,20 @@
                 {{-- !? altに値入れると全ページに文字と画像マーク表示されてしまう, --}}
                  {{-- →if分で画像がある時のみ表示する --}}
                 <p>投稿日時：{{ $post->created_at }}</p>
+                <div class="col-md-3">
+                    {{-- <form action="{{route('favorites', $post)}}" method="post">
+                    @csrf
+                    <input type="submit" value="&#xf164;いいね" class="fas btn btn-success">
+                    </form>
+                    <div class="col-md-3">
+                        <form action="{{route('unfavorites', $post)}}" method="post">
+                        @csrf
+                        <input type="submit" value="&#xf164;いいね" class="fas btn btn-danger">
+                        </form> --}}
+
+                    </div>
+
+                </div>
 
                 <div class="btn-group">
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>

@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +30,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController');
 Route::resource('comments', 'CommentController');
+
+Route::post('posts/{post}/favorites', 'FavoriteController@store')->name('favorites');
+Route::post('posts/{post}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');

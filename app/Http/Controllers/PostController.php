@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Post;
-use Auth;
+// use Auth;
+use Illuminate\Support\Facades\Auth;
 use JD\Cloudder\Facades\Cloudder;
+
 
 class PostController extends Controller
 {

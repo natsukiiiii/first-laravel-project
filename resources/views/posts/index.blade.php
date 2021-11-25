@@ -20,12 +20,14 @@
                 {{-- いいね機能 --}}
                 <div class="row justify-content-center">
                     <div class="col-md-3">
-                        <form action="">
+                        <form action="{{ route('favorites', $post) }}" method="POST">
+                            @csrf
                             <input type="submit" value="&#xf164;いいね" class="fas btn btn-success">
                         </form>
                     </div>
                     <div col-md-3>
-                        <form action="">
+                        <form action="{{ route('unfavorites', $post) }}" method="POSt">
+                            @csrf
                             <input type="submit" value="&#xf164;いいね取り消す" class="fas btn btn-danger">
                         </form>
 

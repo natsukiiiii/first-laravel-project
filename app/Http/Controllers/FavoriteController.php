@@ -3,23 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CommentRequest;
-use App\Comment;
 use App\Post;
 // use Auth;
 use Illuminate\Support\Facades\Auth;
 
-
-class CommentController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
+        //
     }
 
     /**
@@ -38,25 +35,11 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CommentRequest $request)
+    public function store(Post $post)
     {
-        $post = Post::find($request->post_id);
-        // 該当の投稿を探す
-            $comment = new Comment;
-            //commentのインスタンスを作成
-            $comment -> body = $request->body;
-            $comment -> user_id = Auth::id();
-            $comment -> post_id = $request->post_id;
-            $comment->save();
+        $post->users()->attach(Auth::id());
 
-        // if($post->id === 'POST'){
-        // }
-        $request->session()->regenerateToken();
-    //  !? リロードするたびにコメントが増えたのを防ぐため、上記を入れたが、419が毎度表示されるので、まだ改善の予知あり。。
-
-        return view('posts.show', compact('post'));
-        //リターン先は該当の投稿詳細ページ
-        // compact:変数を受け渡す時に使う。複数可。withでも良いがcompactの方が可読性高いらしい。
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -99,13 +82,10 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $comment = Comment::find($id);
-        if(Auth::id() !== $comment->user_id){
-            return abort(404);
-        }
-        $comment -> delete();
+        $post->users()->detach(Auth::id());
+
         return redirect()->route('posts.index');
     }
 }
