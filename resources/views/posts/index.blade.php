@@ -17,6 +17,22 @@
                 <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">詳細へ</a>
                 {{-- $post->id : どのpostの詳細にいくのかを指定 --}}
 
+                {{-- いいね機能 --}}
+                <div class="row justify-content-center">
+                    <div class="col-md-3">
+                        <form action="">
+                            <input type="submit" value="&#xf164;いいね" class="fas btn btn-success">
+                        </form>
+                    </div>
+                    <div col-md-3>
+                        <form action="">
+                            <input type="submit" value="&#xf164;いいね取り消す" class="fas btn btn-danger">
+                        </form>
+
+                    </div>
+                </div>
+                {{-- いいね機能 --}}
+
             </div>
             @endforeach
         </div>
