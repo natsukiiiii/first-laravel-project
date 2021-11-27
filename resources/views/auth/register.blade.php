@@ -1,4 +1,5 @@
 @extends('layouts.app')
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
 
 @section('content')
 <div class="container">
